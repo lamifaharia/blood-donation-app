@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/firebase';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const Login = () => {
@@ -22,11 +21,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
+      const res = await axios.post('http://localhost:5000/api/auth/login', formData);
 
       Swal.fire({
         title: 'Welcome Back!',
@@ -34,14 +29,13 @@ const Login = () => {
         icon: 'success'
       });
 
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+
       navigate('/dashboard');
 
     } catch (error) {
-      Swal.fire({
-        title: 'Login Failed',
-        text: error.message,
-        icon: 'error'
-      });
+      Swal.fire('Login Failed', error.response?.data?.message || 'Invalid credentials', 'error');
     } finally {
       setLoading(false);
     }
@@ -65,7 +59,6 @@ const Login = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500"
-              placeholder="your@email.com"
             />
           </div>
 
@@ -78,7 +71,6 @@ const Login = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500"
-              placeholder="••••••••"
             />
           </div>
 
