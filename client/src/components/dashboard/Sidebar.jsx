@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth"; // Ensure this path matches where you moved the hook!
+import { useAuth } from "../../hooks/useAuth"; 
 import { Home, User, PlusCircle, List, DollarSign, LogOut } from "lucide-react";
 
 const Sidebar = () => {

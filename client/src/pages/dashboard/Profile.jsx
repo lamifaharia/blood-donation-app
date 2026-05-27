@@ -16,11 +16,8 @@ const Profile = () => {
     upazila: 'Mirpur',
   });
 
-  // Updated useEffect to stop the warning
   useEffect(() => {
     if (user) {
-      // Wrapping in a small timeout forces the update to occur
-      // after the initial render cycle, which stops the warning.
       const timer = setTimeout(() => {
         setProfileData((prev) => ({
           ...prev,
@@ -42,10 +39,9 @@ const Profile = () => {
     setLoading(true);
     
     try {
-      // TODO: Connect to backend API to update profile here
       console.log('Updated Profile Data:', profileData);
       
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 1000)); 
       
       Swal.fire({
         title: 'Success!',
@@ -55,7 +51,6 @@ const Profile = () => {
       
       setIsEditing(false);
     } catch (error) {
-      // The 'error' variable is now used, resolving the linting warning
       console.error('Update failed:', error);
       Swal.fire('Error', error.message || 'Failed to update profile', 'error');
     } finally {
