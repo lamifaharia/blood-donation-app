@@ -24,25 +24,18 @@ function App() {
         
         <main className="flex-1">
           <Routes>
-            {/* ==================== PUBLIC ROUTES ==================== */}
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<SearchDonors />} />
             <Route path="/donation-requests" element={<DonationRequests />} />
 
-            {/* ==================== PRIVATE DASHBOARD ROUTES ==================== */}
+            {/* Private Dashboard Routes */}
             <Route path="/dashboard" element={<DashboardLayout />}>
-              {/* Dashboard Home */}
               <Route index element={<DashboardHome />} />
-              
-              {/* ============ Profile Page =================*/}
               <Route path="profile" element={<Profile />} />
-              
-              {/*================= Create Donation Request============== */}
               <Route path="create-donation-request" element={<CreateDonationRequest />} />
-              
-              {/*=============== My Donation Requests=============== */}
               <Route path="my-donation-requests" element={<MyDonationRequests />} />
             </Route>
           </Routes>
