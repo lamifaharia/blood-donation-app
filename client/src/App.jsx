@@ -9,8 +9,8 @@ import Register from './pages/public/Register';
 import SearchDonors from './pages/public/SearchDonors';
 import DonationRequests from './pages/public/DonationRequests';
 
-// Dashboard Pages (we'll create these step by step)
 import DashboardLayout from './pages/dashboard/DashboardLayout';
+
 
 function App() {
   return (

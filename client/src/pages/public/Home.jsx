@@ -1,6 +1,6 @@
 const Home = () => {
   return (
-    <div className="min-h-[80vh] bg-gradient-to-br from-red-50 to-white flex items-center">
+    <div className="min-h-[80vh] bg-linear-to-br from-red-50 to-white flex items-center">
       <div className="max-w-7xl mx-auto px-6 py-20 text-center">
         <h1 className="text-6xl font-bold text-red-700 mb-6 leading-tight">
           Give Blood,<br />Save Lives
