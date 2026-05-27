@@ -24,14 +24,12 @@ function App() {
         
         <main className="flex-1">
           <Routes>
-            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<SearchDonors />} />
             <Route path="/donation-requests" element={<DonationRequests />} />
 
-            {/* Private Dashboard Routes */}
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<DashboardHome />} />
               <Route path="profile" element={<Profile />} />
