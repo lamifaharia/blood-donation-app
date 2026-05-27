@@ -14,6 +14,7 @@ import DashboardLayout from './pages/dashboard/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import Profile from './pages/dashboard/Profile';
 import CreateDonationRequest from './pages/dashboard/CreateDonationRequest';
+import MyDonationRequests from './pages/dashboard/MyDonationRequests';
 
 function App() {
   return (
@@ -32,14 +33,17 @@ function App() {
 
             {/* ==================== PRIVATE DASHBOARD ROUTES ==================== */}
             <Route path="/dashboard" element={<DashboardLayout />}>
-              {/* Default Dashboard Home */}
+              {/* Dashboard Home */}
               <Route index element={<DashboardHome />} />
               
-              {/* Profile */}
+              {/* ============ Profile Page =================*/}
               <Route path="profile" element={<Profile />} />
               
-              {/* Create Donation Request */}
+              {/*================= Create Donation Request============== */}
               <Route path="create-donation-request" element={<CreateDonationRequest />} />
+              
+              {/*=============== My Donation Requests=============== */}
+              <Route path="my-donation-requests" element={<MyDonationRequests />} />
             </Route>
           </Routes>
         </main>

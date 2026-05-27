@@ -59,13 +59,10 @@ const Register = () => {
         formData.password
       );
 
-      // Use userCredential to avoid ESLint warning
       const { user } = userCredential;
 
-      // 2. Upload avatar to ImageBB
       const avatarUrl = await uploadImage(avatar);
 
-      // 3. Prepare user data for backend
       const userData = {
         uid: user.uid,
         name: formData.name,
