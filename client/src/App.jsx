@@ -13,6 +13,7 @@ import DonationRequests from './pages/public/DonationRequests';
 import DashboardLayout from './pages/dashboard/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import Profile from './pages/dashboard/Profile';
+import CreateDonationRequest from './pages/dashboard/CreateDonationRequest';
 
 function App() {
   return (
@@ -22,17 +23,23 @@ function App() {
         
         <main className="flex-1">
           <Routes>
-            {/* Public Routes */}
+            {/* ==================== PUBLIC ROUTES ==================== */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<SearchDonors />} />
             <Route path="/donation-requests" element={<DonationRequests />} />
 
-            {/* Private Dashboard Routes */}
+            {/* ==================== PRIVATE DASHBOARD ROUTES ==================== */}
             <Route path="/dashboard" element={<DashboardLayout />}>
+              {/* Default Dashboard Home */}
               <Route index element={<DashboardHome />} />
+              
+              {/* Profile */}
               <Route path="profile" element={<Profile />} />
+              
+              {/* Create Donation Request */}
+              <Route path="create-donation-request" element={<CreateDonationRequest />} />
             </Route>
           </Routes>
         </main>
