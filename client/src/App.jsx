@@ -9,8 +9,9 @@ import Register from './pages/public/Register';
 import SearchDonors from './pages/public/SearchDonors';
 import DonationRequests from './pages/public/DonationRequests';
 
+// Dashboard
 import DashboardLayout from './pages/dashboard/DashboardLayout';
-
+import Profile from './pages/dashboard/Profile';
 
 function App() {
   return (
@@ -28,7 +29,10 @@ function App() {
             <Route path="/donation-requests" element={<DonationRequests />} />
 
             {/* Private Dashboard Routes */}
-            <Route path="/dashboard/*" element={<DashboardLayout />} />
+            <Route path="/dashboard" element={<DashboardLayout />}>
+              <Route index element={<div>Dashboard Home - Coming Soon</div>} />
+              <Route path="profile" element={<Profile />} />
+            </Route>
           </Routes>
         </main>
 
