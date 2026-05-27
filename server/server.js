@@ -9,18 +9,21 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: 'http://localhost:5173',
   credentials: true
 }));
 app.use(express.json());
 
+// Connect Database
 connectDB();
+
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
 
 // Basic Route
 app.get('/', (req, res) => {
   res.send('Blood Donation Server is Running ✅');
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
