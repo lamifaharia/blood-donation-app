@@ -15,9 +15,12 @@ import DashboardHome from './pages/dashboard/DashboardHome';
 import Profile from './pages/dashboard/Profile';
 import CreateDonationRequest from './pages/dashboard/CreateDonationRequest';
 import MyDonationRequests from './pages/dashboard/MyDonationRequests';
+import Funding from './pages/dashboard/Funding';
 
 // Admin Pages
 import AdminDashboardHome from './pages/dashboard/admin/AdminDashboardHome';
+import AllUsers from './pages/dashboard/admin/AllUsers';
+import AllBloodRequests from './pages/dashboard/admin/AllBloodRequests';
 
 function App() {
   return (
@@ -36,14 +39,17 @@ function App() {
 
             {/* ==================== PRIVATE DASHBOARD ROUTES ==================== */}
             <Route path="/dashboard" element={<DashboardLayout />}>
-              {/* Donor Routes */}
+              {/* Common & Donor Routes */}
               <Route index element={<DashboardHome />} />
               <Route path="profile" element={<Profile />} />
               <Route path="create-donation-request" element={<CreateDonationRequest />} />
               <Route path="my-donation-requests" element={<MyDonationRequests />} />
+              <Route path="funding" element={<Funding />} />
 
               {/* Admin Routes */}
               <Route path="admin" element={<AdminDashboardHome />} />
+              <Route path="all-users" element={<AllUsers />} />
+              <Route path="all-blood-requests" element={<AllBloodRequests />} />
             </Route>
           </Routes>
         </main>

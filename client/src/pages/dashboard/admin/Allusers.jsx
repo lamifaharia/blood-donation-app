@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../../context/AuthContext';
 
 const AllUsers = () => {
   const { token } = useAuth(); 
