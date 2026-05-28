@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-
+import { useAuth } from '../../hooks/useAuth';
 const Navbar = () => {
   const { user, logout } = useAuth();
 
@@ -31,12 +30,12 @@ const Navbar = () => {
                 to="/dashboard" 
                 className="flex items-center gap-2 hover:bg-red-700 px-4 py-2 rounded-full transition"
               >
-                <span>Dashboard</span>
+                Dashboard
               </Link>
               
               <button 
                 onClick={handleLogout}
-                className="px-6 py-2.5 border border-white rounded-full hover:bg-white hover:text-red-600 transition"
+                className="px-6 py-2.5 border border-white rounded-full hover:bg-white hover:text-red-600 transition font-medium"
               >
                 Logout
               </button>

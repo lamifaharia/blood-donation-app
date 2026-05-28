@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import { useAuth } from '../../hooks/useAuth';
 const Login = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();   // ← Important
 
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,19 +24,23 @@ const Login = () => {
     try {
       const res = await axios.post('http://localhost:5000/api/auth/login', formData);
 
+      // Save user & token using AuthContext
+      login(res.data.user, res.data.token);
+
       Swal.fire({
         title: 'Welcome Back!',
         text: 'Login successful',
         icon: 'success'
       });
 
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
-
       navigate('/dashboard');
 
     } catch (error) {
-      Swal.fire('Login Failed', error.response?.data?.message || 'Invalid credentials', 'error');
+      Swal.fire({
+        title: 'Login Failed',
+        text: error.response?.data?.message || 'Invalid credentials',
+        icon: 'error'
+      });
     } finally {
       setLoading(false);
     }
@@ -59,6 +64,7 @@ const Login = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500"
+              placeholder="your@email.com"
             />
           </div>
 
@@ -71,6 +77,7 @@ const Login = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500"
+              placeholder="••••••••"
             />
           </div>
 
