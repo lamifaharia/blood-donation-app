@@ -21,4 +21,34 @@ const getMyDonationRequests = async (req, res) => {
   }
 };
 
+const updateDonationStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    const updatedRequest = await DonationRequest.findByIdAndUpdate(
+      id,
+      { 
+        status,
+        ...(status === 'inprogress' && { donorInfo: req.user }) 
+      },
+      { new: true }
+    );
+
+    if (!updatedRequest) {
+      return res.status(404).json({ message: 'Request not found' });
+    }
+
+    res.json({ message: 'Status updated successfully', request: updatedRequest });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { 
+  createDonationRequest, 
+  getMyDonationRequests, 
+  updateDonationStatus 
+};
+
 module.exports = { createDonationRequest, getMyDonationRequests };

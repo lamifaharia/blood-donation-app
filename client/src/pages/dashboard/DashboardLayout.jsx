@@ -31,7 +31,7 @@ const DashboardLayout = () => {
 
         {/* Page Content */}
         <div className="flex-1 p-6 overflow-auto">
-          <Outlet />   {/* This will render child pages like /dashboard, /dashboard/profile, etc. */}
+          <Outlet />   
         </div>
       </div>
     </div>

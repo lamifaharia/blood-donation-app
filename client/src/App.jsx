@@ -16,6 +16,9 @@ import Profile from './pages/dashboard/Profile';
 import CreateDonationRequest from './pages/dashboard/CreateDonationRequest';
 import MyDonationRequests from './pages/dashboard/MyDonationRequests';
 
+// Admin Pages
+import AdminDashboardHome from './pages/dashboard/admin/AdminDashboardHome';
+
 function App() {
   return (
     <Router>
@@ -24,17 +27,23 @@ function App() {
         
         <main className="flex-1">
           <Routes>
+            {/* ==================== PUBLIC ROUTES ==================== */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<SearchDonors />} />
             <Route path="/donation-requests" element={<DonationRequests />} />
 
+            {/* ==================== PRIVATE DASHBOARD ROUTES ==================== */}
             <Route path="/dashboard" element={<DashboardLayout />}>
+              {/* Donor Routes */}
               <Route index element={<DashboardHome />} />
               <Route path="profile" element={<Profile />} />
               <Route path="create-donation-request" element={<CreateDonationRequest />} />
               <Route path="my-donation-requests" element={<MyDonationRequests />} />
+
+              {/* Admin Routes */}
+              <Route path="admin" element={<AdminDashboardHome />} />
             </Route>
           </Routes>
         </main>
