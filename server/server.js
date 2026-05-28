@@ -19,6 +19,7 @@ connectDB();
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/donations', require('./routes/donationRoutes'));
 
 // Basic Route
 app.get('/', (req, res) => {
