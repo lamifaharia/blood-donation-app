@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { Link } from 'react-router-dom';
+
 const Navbar = () => {
   const { user, logout } = useAuth();
 
@@ -22,23 +23,27 @@ const Navbar = () => {
           <Link to="/search" className="hover:text-red-200 transition">Search Donors</Link>
         </div>
 
-        {/* Auth Section */}
+        {/* Right Side - Only Profile Picture */}
         <div className="flex items-center gap-4">
           {user ? (
-            <div className="flex items-center gap-4">
-              <Link 
-                to="/dashboard" 
-                className="flex items-center gap-2 hover:bg-red-700 px-4 py-2 rounded-full transition"
-              >
-                Dashboard
-              </Link>
+            <div className="flex items-center gap-3">
               
+              {/* Logout Button */}
               <button 
                 onClick={handleLogout}
                 className="px-6 py-2.5 border border-white rounded-full hover:bg-white hover:text-red-600 transition font-medium"
               >
                 Logout
               </button>
+
+              {/* Profile Picture Only */}
+              <img 
+                src={user.avatar || 'https://via.placeholder.com/40'} 
+                alt="Profile" 
+                className="w-9 h-9 rounded-full object-cover border-2 border-white cursor-pointer"
+                title={user.name || user.email?.split('@')[0]}
+              />
+
             </div>
           ) : (
             <div className="flex items-center gap-4">

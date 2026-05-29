@@ -28,10 +28,7 @@ const updateDonationStatus = async (req, res) => {
 
     const updatedRequest = await DonationRequest.findByIdAndUpdate(
       id,
-      { 
-        status,
-        ...(status === 'inprogress' && { donorInfo: req.user }) 
-      },
+      { status },
       { new: true }
     );
 
@@ -50,5 +47,3 @@ module.exports = {
   getMyDonationRequests, 
   updateDonationStatus 
 };
-
-module.exports = { createDonationRequest, getMyDonationRequests };

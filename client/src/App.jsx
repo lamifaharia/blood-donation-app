@@ -16,6 +16,7 @@ import Profile from './pages/dashboard/Profile';
 import CreateDonationRequest from './pages/dashboard/CreateDonationRequest';
 import MyDonationRequests from './pages/dashboard/MyDonationRequests';
 import Funding from './pages/dashboard/Funding';
+import DonationRequestDetails from './pages/dashboard/DonationRequestDetails';
 
 // Admin Pages
 import AdminDashboardHome from './pages/dashboard/admin/AdminDashboardHome';
@@ -30,21 +31,23 @@ function App() {
         
         <main className="flex-1">
           <Routes>
-            {/* ==================== PUBLIC ROUTES ==================== */}
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search" element={<SearchDonors />} />
             <Route path="/donation-requests" element={<DonationRequests />} />
 
-            {/* ==================== PRIVATE DASHBOARD ROUTES ==================== */}
+            {/* Private Dashboard Routes */}
             <Route path="/dashboard" element={<DashboardLayout />}>
-              {/* Common & Donor Routes */}
               <Route index element={<DashboardHome />} />
               <Route path="profile" element={<Profile />} />
               <Route path="create-donation-request" element={<CreateDonationRequest />} />
               <Route path="my-donation-requests" element={<MyDonationRequests />} />
               <Route path="funding" element={<Funding />} />
+              
+              {/* Donation Request Details */}
+              <Route path="request/:id" element={<DonationRequestDetails />} />
 
               {/* Admin Routes */}
               <Route path="admin" element={<AdminDashboardHome />} />

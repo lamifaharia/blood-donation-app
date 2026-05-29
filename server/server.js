@@ -7,11 +7,14 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// ✅ Updated CORS Configuration
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
+  origin: ['http://localhost:5173', 'http://localhost:5174'], // Both possible Vite ports
+  credentials: true,
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 // Connect Database

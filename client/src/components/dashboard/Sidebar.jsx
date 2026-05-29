@@ -8,35 +8,32 @@ const Sidebar = () => {
   const isAdmin = user?.role === 'admin';
   const isVolunteer = user?.role === 'volunteer';
 
-  const commonItems = [
+  // Define menu items based on role
+  const menuItems = [
     { path: '/dashboard', label: 'Dashboard Home', icon: Home },
     { path: '/dashboard/profile', label: 'My Profile', icon: User },
-  ];
-
-  const donorItems = [
-    { path: '/dashboard/create-donation-request', label: 'Create Request', icon: PlusCircle },
-    { path: '/dashboard/my-donation-requests', label: 'My Requests', icon: List },
-    { path: '/dashboard/funding', label: 'Funding', icon: DollarSign },
-  ];
-
-  const adminItems = [
-    { path: '/dashboard/admin', label: 'Admin Home', icon: Shield },
-    { path: '/dashboard/all-users', label: 'All Users', icon: Users },
-    { path: '/dashboard/all-blood-requests', label: 'All Requests', icon: HandHeart },
-  ];
-
-  const volunteerItems = [
-    { path: '/dashboard/all-blood-requests', label: 'All Requests', icon: HandHeart },
-  ];
-
-  const menuItems = [
-    ...commonItems,
-    ...(isAdmin ? adminItems : isVolunteer ? volunteerItems : donorItems)
+    ...(isAdmin 
+      ? [
+          { path: '/dashboard/admin', label: 'Admin Home', icon: Shield },
+          { path: '/dashboard/all-users', label: 'All Users', icon: Users },
+          { path: '/dashboard/all-blood-requests', label: 'All Requests', icon: HandHeart },
+        ] 
+      : isVolunteer 
+      ? [
+          { path: '/dashboard/all-blood-requests', label: 'All Requests', icon: HandHeart },
+        ] 
+      : [
+          { path: '/dashboard/create-donation-request', label: 'Create Request', icon: PlusCircle },
+          { path: '/dashboard/my-donation-requests', label: 'My Requests', icon: List },
+          { path: '/dashboard/funding', label: 'Funding', icon: DollarSign },
+        ]
+    )
   ];
 
   return (
-    <div className="w-72 bg-white border-r border-gray-200 shadow-sm hidden md:block">
+    <div className="w-72 bg-white border-r border-gray-200 shadow-sm shrink-0 min-h-screen">
       <div className="p-6">
+        {/* Brand/Logo Area */}
         <div className="flex items-center gap-3 mb-10">
           <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white text-2xl">
             🩸
@@ -49,11 +46,13 @@ const Sidebar = () => {
           </div>
         </div>
 
+        {/* Navigation Links */}
         <nav className="space-y-1">
           {menuItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
+              end={item.path === '/dashboard'}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   isActive 
@@ -68,6 +67,7 @@ const Sidebar = () => {
           ))}
         </nav>
 
+        {/* Logout Button */}
         <div className="mt-12">
           <button
             onClick={logout}

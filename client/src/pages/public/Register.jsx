@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/firebase';
 import { uploadImage } from '../../utils/imageUpload';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useAuth } from '../../hooks/useAuth';
 
 const bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
 const Register = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -53,11 +55,14 @@ const Register = () => {
     setLoading(true);
 
     try {
+      // 1. Create user in Firebase
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
 
+      // 2. Upload avatar
       const avatarUrl = await uploadImage(avatar);
 
-      const userData = {
+      // 3. Register in Backend
+      await axios.post('http://localhost:5000/api/auth/register', {
         name: formData.name,
         email: formData.email,
         password: formData.password,
@@ -65,17 +70,23 @@ const Register = () => {
         bloodGroup: formData.bloodGroup,
         district: formData.district,
         upazila: formData.upazila,
-      };
+      });
 
-      await axios.post('http://localhost:5000/api/auth/register', userData);
+      // 4. Auto Login
+      const loginRes = await axios.post('http://localhost:5000/api/auth/login', {
+        email: formData.email,
+        password: formData.password
+      });
+
+      login(loginRes.data.user, loginRes.data.token);
 
       Swal.fire({
         title: 'Success!',
-        text: 'Registration successful! Please login.',
+        text: 'Account created and logged in successfully!',
         icon: 'success'
       });
 
-      navigate('/login');
+      navigate('/dashboard');
 
     } catch (error) {
       Swal.fire('Error', error.response?.data?.message || error.message, 'error');
@@ -90,7 +101,7 @@ const Register = () => {
         <h2 className="text-3xl font-bold text-center text-red-700 mb-8">Join as a Donor</h2>
 
         <form onSubmit={handleRegister} className="space-y-6">
-          {/* Avatar */}
+          {/* Avatar Upload */}
           <div className="flex flex-col items-center">
             <div className="w-32 h-32 border-2 border-dashed border-red-300 rounded-full overflow-hidden mb-4">
               {avatarPreview ? (
@@ -150,12 +161,13 @@ const Register = () => {
             disabled={loading}
             className="w-full bg-red-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-red-700 disabled:opacity-70"
           >
-            {loading ? 'Creating Account...' : 'Register Now'}
+            {loading ? 'Creating Account...' : 'Register & Login'}
           </button>
         </form>
 
         <p className="text-center mt-6 text-gray-600">
-          Already have an account? <Link to="/login" className="text-red-600 font-medium hover:underline">Login here</Link>
+          Already have an account?{' '}
+          <a href="/login" className="text-red-600 font-medium hover:underline">Login here</a>
         </p>
       </div>
     </div>

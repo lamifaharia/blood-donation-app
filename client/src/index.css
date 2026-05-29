@@ -1,8 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 @import "tailwindcss";
+@plugin "daisyui";
 
 @theme {
   --font-inter: "Inter", system-ui, sans-serif;
-  
   --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    @apply bg-base-100;
+  }
 }
