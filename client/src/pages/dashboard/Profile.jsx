@@ -59,18 +59,14 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-sm p-8">
+    <div className="max-w-4xl mx-auto p-4">
+      <div className="card bg-base-100 border border-base-200 shadow-sm p-8">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">My Profile</h2>
+          <h2 className="text-3xl font-bold text-base-content">My Profile</h2>
           
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className={`px-6 py-2 rounded-xl font-medium transition ${
-              isEditing 
-                ? 'bg-gray-200 text-gray-700' 
-                : 'bg-red-600 text-white hover:bg-red-700'
-            }`}
+            className={`btn ${isEditing ? 'btn-ghost' : 'btn-error text-white'}`}
           >
             {isEditing ? 'Cancel' : 'Edit Profile'}
           </button>
@@ -78,15 +74,13 @@ const Profile = () => {
 
         <div className="flex flex-col md:flex-row gap-10">
           <div className="flex flex-col items-center">
-            <div className="w-40 h-40 rounded-2xl overflow-hidden border-4 border-red-100 mb-4">
-              <img 
-                src={profileData.avatar} 
-                alt="Profile" 
-                className="w-full h-full object-cover" 
-              />
+            <div className="avatar mb-4">
+              <div className="w-40 rounded-2xl ring ring-error ring-offset-base-100 ring-offset-2">
+                <img src={profileData.avatar} alt="Profile" />
+              </div>
             </div>
             {isEditing && (
-              <label className="text-red-600 text-sm cursor-pointer hover:underline">
+              <label className="text-error text-sm cursor-pointer hover:underline font-medium">
                 Change Photo
               </label>
             )}
@@ -94,36 +88,36 @@ const Profile = () => {
 
           <div className="flex-1 space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
+              <div className="form-control">
+                <label className="label"><span className="label-text font-medium">Full Name</span></label>
                 <input
                   type="text"
                   name="name"
                   value={profileData.name}
                   onChange={handleChange}
                   disabled={!isEditing}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-red-500 disabled:bg-gray-100"
+                  className="input input-bordered w-full disabled:bg-base-200"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Email Address</label>
+              <div className="form-control">
+                <label className="label"><span className="label-text font-medium">Email Address</span></label>
                 <input
                   type="email"
                   value={profileData.email}
                   disabled
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-100 cursor-not-allowed"
+                  className="input input-bordered w-full bg-base-200 cursor-not-allowed"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Blood Group</label>
+              <div className="form-control">
+                <label className="label"><span className="label-text font-medium">Blood Group</span></label>
                 <select
                   name="bloodGroup"
                   value={profileData.bloodGroup}
                   onChange={handleChange}
                   disabled={!isEditing}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-red-500 disabled:bg-gray-100"
+                  className="select select-bordered w-full disabled:bg-base-200"
                 >
                   {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map(bg => (
                     <option key={bg} value={bg}>{bg}</option>
@@ -131,27 +125,27 @@ const Profile = () => {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">District</label>
+              <div className="form-control">
+                <label className="label"><span className="label-text font-medium">District</span></label>
                 <input
                   type="text"
                   name="district"
                   value={profileData.district}
                   onChange={handleChange}
                   disabled={!isEditing}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-red-500 disabled:bg-gray-100"
+                  className="input input-bordered w-full disabled:bg-base-200"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-1">Upazila</label>
+              <div className="form-control">
+                <label className="label"><span className="label-text font-medium">Upazila</span></label>
                 <input
                   type="text"
                   name="upazila"
                   value={profileData.upazila}
                   onChange={handleChange}
                   disabled={!isEditing}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-red-500 disabled:bg-gray-100"
+                  className="input input-bordered w-full disabled:bg-base-200"
                 />
               </div>
             </div>
@@ -160,7 +154,7 @@ const Profile = () => {
               <button
                 onClick={handleSave}
                 disabled={loading}
-                className="w-full bg-green-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-green-700 transition"
+                className="btn btn-success text-white w-full text-lg"
               >
                 {loading ? 'Saving...' : 'Save Changes'}
               </button>

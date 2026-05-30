@@ -16,7 +16,6 @@ const Funding = () => {
       return;
     }
 
-    // Mock funding 
     const newFunding = {
       id: Date.now(),
       name: user?.name || user?.email?.split('@')[0],
@@ -38,63 +37,76 @@ const Funding = () => {
 
   return (
     <div className="space-y-8">
-      <div className="bg-linear-to-r from-green-600 to-emerald-600 text-white rounded-3xl p-8">
-        <h1 className="text-4xl font-bold">Support Our Mission</h1>
-        <p className="text-emerald-100 mt-3 text-lg">Every taka helps us save more lives</p>
-      </div>
-
-      {/* Donate Form */}
-      <div className="bg-white rounded-2xl shadow-sm p-8">
-        <h2 className="text-2xl font-semibold mb-6">Make a Donation</h2>
-        
-        <div className="max-w-md">
-          <label className="block text-sm font-medium mb-2">Donation Amount (৳)</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            className="w-full px-4 py-4 border border-gray-300 rounded-xl text-2xl focus:border-green-500"
-            placeholder="500"
-          />
-
-          <button
-            onClick={handleDonate}
-            className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl text-lg font-semibold transition"
-          >
-            Donate Now
-          </button>
+      {/* Hero Header */}
+      <div className="hero bg-success rounded-3xl p-8 text-white shadow-xl">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold">Support Our Mission</h1>
+          <p className="mt-2 text-lg opacity-90">Every taka helps us save more lives.</p>
         </div>
       </div>
 
-      {/* Recent Fundings */}
-      <div>
-        <h2 className="text-2xl font-semibold mb-6">Recent Contributions</h2>
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-4 text-left">Donor</th>
-                <th className="px-6 py-4 text-left">Amount</th>
-                <th className="px-6 py-4 text-left">Date</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {fundings.map(f => (
-                <tr key={f.id}>
-                  <td className="px-6 py-4 font-medium">{f.name}</td>
-                  <td className="px-6 py-4 font-semibold text-green-600">৳{f.amount}</td>
-                  <td className="px-6 py-4 text-gray-600">{f.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Donation Form */}
+        <div className="lg:col-span-1">
+          <div className="card bg-base-100 border border-base-200 shadow-sm p-6 sticky top-24">
+            <h2 className="text-xl font-bold mb-6">Make a Donation</h2>
+            <div className="form-control w-full">
+              <label className="label"><span className="label-text">Donation Amount (৳)</span></label>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="input input-bordered w-full text-2xl focus:input-success"
+                placeholder="500"
+              />
+              <button
+                onClick={handleDonate}
+                className="btn btn-success text-white mt-6 w-full text-lg"
+              >
+                Donate Now
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Total Funds */}
-      <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
-        <p className="text-gray-600">Total Funds Raised</p>
-        <p className="text-5xl font-bold text-green-600 mt-2">৳{totalFunds}</p>
+        {/* Contributions & Stats */}
+        <div className="lg:col-span-2 space-y-8">
+          {/* Total Funds Stat */}
+          <div className="stats shadow w-full bg-base-100 border border-base-200">
+            <div className="stat">
+              <div className="stat-title font-semibold">Total Funds Raised</div>
+              <div className="stat-value text-success">৳{totalFunds}</div>
+              <div className="stat-desc">Combined donor contributions</div>
+            </div>
+          </div>
+
+          {/* Recent Contributions */}
+          <div className="card bg-base-100 border border-base-200 shadow-sm">
+            <div className="card-body p-0">
+              <h2 className="p-6 pb-0 font-bold text-xl">Recent Contributions</h2>
+              <div className="overflow-x-auto">
+                <table className="table table-zebra w-full">
+                  <thead>
+                    <tr>
+                      <th>Donor</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {fundings.map(f => (
+                      <tr key={f.id}>
+                        <td className="font-semibold">{f.name}</td>
+                        <td className="text-success font-bold">৳{f.amount}</td>
+                        <td className="text-base-content/70">{f.date}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -12,3 +12,15 @@
     @apply bg-base-100;
   }
 }
+
+@theme {
+  --font-sans: 'Poppins', sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}

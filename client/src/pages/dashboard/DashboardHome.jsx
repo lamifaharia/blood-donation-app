@@ -16,7 +16,6 @@ const DashboardHome = () => {
         const res = await axios.get('http://localhost:5000/api/donations/my-requests', {
           headers: { Authorization: `Bearer ${token}` }
         });
-        
         const sorted = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setRecentRequests(sorted.slice(0, 3));
       } catch (error) {
@@ -25,10 +24,7 @@ const DashboardHome = () => {
         setLoading(false);
       }
     };
-
-    if (token) {
-      fetchRecentRequests();
-    }
+    if (token) fetchRecentRequests();
   }, [token]);
 
   const handleStatusChange = async (id, newStatus) => {
@@ -37,10 +33,7 @@ const DashboardHome = () => {
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      
       Swal.fire('Updated!', `Request marked as ${newStatus}`, 'success');
-      
-      // Re-fetch data
       window.location.reload(); 
     } catch (error) {
       console.error("Update error:", error);
@@ -50,77 +43,62 @@ const DashboardHome = () => {
 
   return (
     <div className="space-y-8">
-      <div className="bg-linear-to-r from-red-600 to-red-700 text-white rounded-3xl p-8">
-        <h1 className="text-4xl font-bold">
-          Welcome back, {user?.name || 'Donor'}! 👋
-        </h1>
-        <p className="text-red-100 mt-3 text-lg">
-          Thank you for being a hero. Your donations save lives.
-        </p>
+      {/* Welcome Hero Card */}
+      <div className="hero bg-error text-error-content rounded-3xl p-8 shadow-xl">
+        <div className="hero-content p-0 w-full justify-start">
+          <div>
+            <h1 className="text-4xl font-bold">Welcome back, {user?.name || 'Donor'}! 👋</h1>
+            <p className="py-3 text-lg opacity-90">Thank you for being a hero. Your contribution saves lives.</p>
+          </div>
+        </div>
       </div>
 
-      <div>
+      {/* Recent Requests Section */}
+      <div className="card bg-base-100 border border-base-200 shadow-sm p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800">Recent Donation Requests</h2>
-          <Link to="/dashboard/my-donation-requests" className="text-red-600 hover:underline font-medium">
+          <h2 className="text-2xl font-bold">Recent Requests</h2>
+          <Link to="/dashboard/my-donation-requests" className="btn btn-sm btn-ghost hover:text-error">
             View All →
           </Link>
         </div>
 
         {loading ? (
-          <p>Loading recent requests...</p>
+          <div className="flex justify-center p-10"><span className="loading loading-spinner text-error"></span></div>
         ) : recentRequests.length > 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b">
+          <div className="overflow-x-auto">
+            <table className="table table-zebra w-full">
+              <thead>
                 <tr>
-                  <th className="px-6 py-4 text-left">Recipient</th>
-                  <th className="px-6 py-4 text-left">Location</th>
-                  <th className="px-6 py-4 text-left">Blood Group</th>
-                  <th className="px-6 py-4 text-left">Date & Time</th>
-                  <th className="px-6 py-4 text-left">Status</th>
-                  <th className="px-6 py-4 text-center">Actions</th>
+                  <th>Recipient</th>
+                  <th>Location</th>
+                  <th>Group</th>
+                  <th>Schedule</th>
+                  <th>Status</th>
+                  <th className="text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y">
+              <tbody>
                 {recentRequests.map((req) => (
-                  <tr key={req._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 font-medium">{req.recipientName}</td>
-                    <td className="px-6 py-4 text-gray-600">
-                      {req.recipientDistrict}, {req.recipientUpazila}
+                  <tr key={req._id}>
+                    <td className="font-semibold">{req.recipientName}</td>
+                    <td className="text-base-content/70">{req.recipientDistrict}, {req.recipientUpazila}</td>
+                    <td><span className="badge badge-error badge-outline font-bold">{req.bloodGroup}</span></td>
+                    <td className="text-sm">
+                      {req.donationDate}<br/>{req.donationTime}
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">
-                        {req.bloodGroup}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-gray-600">
-                      {req.donationDate}<br />
-                      <span className="text-sm">{req.donationTime}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-medium capitalize
-                        ${req.status === 'done' ? 'bg-green-100 text-green-700' : 
-                          req.status === 'inprogress' ? 'bg-yellow-100 text-yellow-700' : 
-                          'bg-gray-100 text-gray-700'}`}>
+                    <td>
+                      <span className={`badge ${
+                        req.status === 'done' ? 'badge-success' : 
+                        req.status === 'inprogress' ? 'badge-info' : 'badge-ghost'
+                      } badge-soft capitalize`}>
                         {req.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-center">
+                    <td className="text-center">
                       {req.status === 'inprogress' && (
                         <div className="flex gap-2 justify-center">
-                          <button 
-                            onClick={() => handleStatusChange(req._id, 'done')}
-                            className="bg-green-600 text-white px-4 py-1 text-xs rounded-lg hover:bg-green-700"
-                          >
-                            Done
-                          </button>
-                          <button 
-                            onClick={() => handleStatusChange(req._id, 'canceled')}
-                            className="bg-red-600 text-white px-4 py-1 text-xs rounded-lg hover:bg-red-700"
-                          >
-                            Cancel
-                          </button>
+                          <button onClick={() => handleStatusChange(req._id, 'done')} className="btn btn-xs btn-success text-white">Done</button>
+                          <button onClick={() => handleStatusChange(req._id, 'canceled')} className="btn btn-xs btn-error text-white">Cancel</button>
                         </div>
                       )}
                     </td>
@@ -130,9 +108,12 @@ const DashboardHome = () => {
             </table>
           </div>
         ) : (
-          <p className="text-gray-500 text-center py-12">No recent donation requests yet.</p>
+          <div className="text-center py-12 text-base-content/50">No recent donation requests yet.</div>
         )}
       </div>
+      {/* TODO: Add a nice dashboard illustration here:
+          <img src="/dashboard-hero.svg" alt="Dashboard" className="w-64 mx-auto opacity-50" /> 
+      */}
     </div>
   );
 };

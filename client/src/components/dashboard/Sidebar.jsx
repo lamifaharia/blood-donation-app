@@ -8,7 +8,6 @@ const Sidebar = () => {
   const isAdmin = user?.role === 'admin';
   const isVolunteer = user?.role === 'volunteer';
 
-  // Define menu items based on role
   const menuItems = [
     { path: '/dashboard', label: 'Dashboard Home', icon: Home },
     { path: '/dashboard/profile', label: 'My Profile', icon: User },
@@ -31,33 +30,36 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-72 bg-white border-r border-gray-200 shadow-sm shrink-0 min-h-screen">
-      <div className="p-6">
-        {/* Brand/Logo Area */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white text-2xl">
+    <div className="w-72 bg-base-100 border-r border-base-200 min-h-screen flex flex-col shrink-0">
+      <div className="p-6 flex flex-col flex-grow">
+        {/* Brand Area */}
+        <div className="flex items-center gap-3 mb-10 pl-2">
+          {/* TODO: Replace this div with your actual logo image if available: 
+              <img src="/logo.png" alt="Logo" className="w-10" /> 
+          */}
+          <div className="w-10 h-10 bg-error rounded-xl flex items-center justify-center text-white text-2xl shadow-lg shadow-error/20">
             🩸
           </div>
           <div>
-            <h2 className="font-bold text-xl text-gray-800">BloodLink</h2>
-            <p className="text-xs text-gray-500 capitalize">
+            <h2 className="font-bold text-xl text-base-content">BloodLink</h2>
+            <p className="text-xs text-base-content/60 capitalize font-medium">
               {user?.role || 'Donor'} Dashboard
             </p>
           </div>
         </div>
 
         {/* Navigation Links */}
-        <nav className="space-y-1">
+        <nav className="space-y-2 flex-grow">
           {menuItems.map((item) => (
             <NavLink
               key={item.path}
               to={item.path}
               end={item.path === '/dashboard'}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
                   isActive 
-                    ? 'bg-red-50 text-red-700 border-r-4 border-red-600' 
-                    : 'hover:bg-gray-100 text-gray-700'
+                    ? 'bg-error text-white shadow-md shadow-error/20' 
+                    : 'text-base-content/70 hover:bg-base-200 hover:text-base-content'
                 }`
               }
             >
@@ -67,11 +69,24 @@ const Sidebar = () => {
           ))}
         </nav>
 
-        {/* Logout Button */}
-        <div className="mt-12">
+        {/* User Info & Logout Section */}
+        <div className="mt-auto pt-6 border-t border-base-200">
+          <div className="flex items-center gap-3 px-2 mb-4">
+            <div className="avatar">
+              <div className="w-10 rounded-full ring ring-error ring-offset-2">
+                <img src={user?.avatar || '/placeholder-user.png'} alt="Profile" />
+                {/* TODO: Add logic to use user's uploaded avatar or a default placeholder */}
+              </div>
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-sm font-bold truncate">{user?.name || 'User'}</p>
+              <p className="text-xs text-base-content/60 truncate">{user?.email}</p>
+            </div>
+          </div>
+          
           <button
             onClick={logout}
-            className="flex items-center gap-3 w-full px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl text-sm font-medium transition"
+            className="flex items-center gap-3 w-full px-4 py-3 text-error hover:bg-error/10 rounded-lg text-sm font-bold transition-all"
           >
             <LogOut className="w-5 h-5" />
             Logout
