@@ -7,7 +7,6 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-base-100/90 backdrop-blur-sm sticky top-0 z-50 px-4 md:px-12 border-b border-base-200 shadow-sm">
       
-      {/* Navbar Start: Logo */}
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -15,7 +14,7 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </label>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow-xl bg-base-100 rounded-2xl w-52 font-medium">
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-1 p-4 shadow-xl bg-base-100 rounded-2xl w-52 font-medium">
             <li><Link to="/donation-requests">Donation Requests</Link></li>
             <li><Link to="/search">Search Donors</Link></li>
           </ul>
@@ -25,7 +24,6 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Navbar Center: Desktop Links */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2 font-semibold">
           <li>
@@ -41,10 +39,16 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Navbar End: Auth */}
       <div className="navbar-end gap-3">
         {user ? (
           <div className="flex items-center gap-4">
+            <Link 
+              to={user.role === 'volunteer' ? "/dashboard/volunteer" : "/dashboard"} 
+              className="btn btn-sm btn-outline btn-error rounded-xl px-5"
+            >
+              {user.role === 'volunteer' ? "Volunteer Dashboard" : "Dashboard"}
+            </Link>
+
             <button 
               onClick={logout} 
               className="btn btn-sm btn-ghost text-error hover:bg-error/10 rounded-xl px-5"

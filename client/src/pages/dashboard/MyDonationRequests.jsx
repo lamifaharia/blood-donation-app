@@ -85,9 +85,7 @@ const MyDonationRequests = () => {
         </div>
       )}
       
-      {/* TODO: Add a button to create a new request if the list is empty:
-          <Link to="/dashboard/create-donation-request" className="btn btn-error text-white">Create New Request</Link> 
-      */}
+      
     </div>
   );
 };

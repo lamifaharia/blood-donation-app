@@ -37,11 +37,19 @@ const Funding = () => {
 
   return (
     <div className="space-y-8">
-      {/* Hero Header */}
-      <div className="hero bg-success rounded-3xl p-8 text-white shadow-xl">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold">Support Our Mission</h1>
-          <p className="mt-2 text-lg opacity-90">Every taka helps us save more lives.</p>
+      {/* Professional Hero Section */}
+      <div className="bg-success text-white rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center gap-8">
+        <img 
+          src="/funding.png" 
+          alt="Support Our Mission" 
+          className="w-full md:w-1/3 h-auto rounded-2xl shadow-lg border-2 border-white/20" 
+        />
+        <div className="flex-1 text-center md:text-left">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Support Our Mission</h1>
+          <p className="text-lg opacity-90 leading-relaxed max-w-2xl">
+            Your generous contributions directly enable us to coordinate blood donations, 
+            reach more hospitals, and ultimately save lives. Every single taka counts.
+          </p>
         </div>
       </div>
 
@@ -51,17 +59,17 @@ const Funding = () => {
           <div className="card bg-base-100 border border-base-200 shadow-sm p-6 sticky top-24">
             <h2 className="text-xl font-bold mb-6">Make a Donation</h2>
             <div className="form-control w-full">
-              <label className="label"><span className="label-text">Donation Amount (৳)</span></label>
+              <label className="label"><span className="label-text font-medium">Donation Amount (৳)</span></label>
               <input
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 className="input input-bordered w-full text-2xl focus:input-success"
-                placeholder="500"
+                placeholder="e.g. 500"
               />
               <button
                 onClick={handleDonate}
-                className="btn btn-success text-white mt-6 w-full text-lg"
+                className="btn btn-success text-white mt-6 w-full text-lg shadow-md hover:scale-[1.02] transition-transform"
               >
                 Donate Now
               </button>
@@ -74,9 +82,9 @@ const Funding = () => {
           {/* Total Funds Stat */}
           <div className="stats shadow w-full bg-base-100 border border-base-200">
             <div className="stat">
-              <div className="stat-title font-semibold">Total Funds Raised</div>
-              <div className="stat-value text-success">৳{totalFunds}</div>
-              <div className="stat-desc">Combined donor contributions</div>
+              <div className="stat-title font-bold text-base">Total Funds Raised</div>
+              <div className="stat-value text-success text-4xl">৳{totalFunds}</div>
+              <div className="stat-desc text-base-content/60">Combined community contributions</div>
             </div>
           </div>
 

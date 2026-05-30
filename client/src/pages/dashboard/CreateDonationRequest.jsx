@@ -19,7 +19,7 @@ const CreateDonationRequest = () => {
     fullAddress: '',
     bloodGroup: '',
     donationDate: '',
-    donationTime: '',
+    donationTime: '', 
     requestMessage: '',
   });
 
@@ -52,10 +52,15 @@ const CreateDonationRequest = () => {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="card bg-base-100 border border-base-200 shadow-sm p-8">
+        <img 
+          src="/donation_req.png" 
+          alt="Create blood donation request" 
+          className="w-full h-64 object-cover rounded-2xl mb-8 shadow-md" 
+        />
+
         <h2 className="text-3xl font-bold text-base-content mb-8">Create Blood Donation Request</h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Requester Info - Readonly */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="form-control w-full">
               <label className="label"><span className="label-text font-medium">Requester Name</span></label>
@@ -69,7 +74,6 @@ const CreateDonationRequest = () => {
 
           <div className="divider">Request Details</div>
 
-          {/* Form Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="form-control w-full">
               <label className="label"><span className="label-text font-medium">Recipient Name *</span></label>
@@ -103,6 +107,12 @@ const CreateDonationRequest = () => {
               <label className="label"><span className="label-text font-medium">Donation Date *</span></label>
               <input type="date" name="donationDate" value={formData.donationDate} onChange={handleChange} required className="input input-bordered w-full focus:input-error" />
             </div>
+
+            {/* Added Donation Time input */}
+            <div className="form-control w-full">
+              <label className="label"><span className="label-text font-medium">Donation Time *</span></label>
+              <input type="time" name="donationTime" value={formData.donationTime} onChange={handleChange} required className="input input-bordered w-full focus:input-error" />
+            </div>
           </div>
 
           <div className="form-control w-full">
@@ -118,14 +128,11 @@ const CreateDonationRequest = () => {
           <button
             type="submit"
             disabled={loading}
-            className={`btn btn-error text-white w-full text-lg ${loading ? 'loading' : ''}`}
+            className="btn btn-error text-white w-full text-lg"
           >
             {loading ? 'Creating...' : 'Create Donation Request'}
           </button>
         </form>
-        {/* TODO: Add a nice hero image at the top of the card or in a side column:
-            <img src="/donation-banner.jpg" alt="Donation" className="w-full rounded-2xl mb-6 shadow-md" /> 
-        */}
       </div>
     </div>
   );

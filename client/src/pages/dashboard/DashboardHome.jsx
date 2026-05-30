@@ -43,13 +43,19 @@ const DashboardHome = () => {
 
   return (
     <div className="space-y-8">
-      {/* Welcome Hero Card */}
-      <div className="hero bg-error text-error-content rounded-3xl p-8 shadow-xl">
-        <div className="hero-content p-0 w-full justify-start">
-          <div>
-            <h1 className="text-4xl font-bold">Welcome back, {user?.name || 'Donor'}! 👋</h1>
-            <p className="py-3 text-lg opacity-90">Thank you for being a hero. Your contribution saves lives.</p>
-          </div>
+      {/* Welcome Hero Card*/}
+      <div className="hero bg-error text-error-content rounded-3xl p-8 shadow-xl flex flex-col md:flex-row items-center gap-6">
+        <div className="flex-1">
+          <h1 className="text-4xl font-bold">Welcome back, {user?.name || 'Donor'}! 👋</h1>
+          <p className="py-3 text-lg opacity-90">Thank you for being a hero. Your contribution saves lives.</p>
+        </div>
+        
+        <div className="w-48 md:w-64">
+          <img 
+            src="/Dashboard.png" 
+            alt="Dashboard" 
+            className="w-full h-auto drop-shadow-lg" 
+          />
         </div>
       </div>
 
@@ -111,9 +117,6 @@ const DashboardHome = () => {
           <div className="text-center py-12 text-base-content/50">No recent donation requests yet.</div>
         )}
       </div>
-      {/* TODO: Add a nice dashboard illustration here:
-          <img src="/dashboard-hero.svg" alt="Dashboard" className="w-64 mx-auto opacity-50" /> 
-      */}
     </div>
   );
 };

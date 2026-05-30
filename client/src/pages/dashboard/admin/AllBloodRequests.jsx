@@ -31,7 +31,7 @@ const AllBloodRequests = () => {
       title: `Mark as ${newStatus}?`,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#e11d48', // Updated to match your brand red
+      confirmButtonColor: '#e11d48', 
     }).then((result) => {
       if (result.isConfirmed) {
         setRequests(requests.map(req => req._id === id ? { ...req, status: newStatus } : req));
@@ -106,9 +106,6 @@ const AllBloodRequests = () => {
             ))}
           </tbody>
         </table>
-        {/* TODO: Add a placeholder empty state if filteredRequests.length === 0:
-            <div className="p-10 text-center text-base-content/50">No requests found for this status.</div>
-        */}
       </div>
     </div>
   );

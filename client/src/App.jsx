@@ -9,7 +9,7 @@ import Register from './pages/public/Register';
 import SearchDonors from './pages/public/SearchDonors';
 import DonationRequests from './pages/public/DonationRequests';
 
-// Dashboard Pages
+// Dashboard Core
 import DashboardLayout from './pages/dashboard/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import Profile from './pages/dashboard/Profile';
@@ -22,6 +22,8 @@ import DonationRequestDetails from './pages/dashboard/DonationRequestDetails';
 import AdminDashboardHome from './pages/dashboard/admin/AdminDashboardHome';
 import AllUsers from './pages/dashboard/admin/AllUsers';
 import AllBloodRequests from './pages/dashboard/admin/AllBloodRequests';
+import DonorDashboard from './pages/dashboard/donor/DonorDashboard';
+import VolunteerDashboard from './pages/dashboard/volunteer/VolunteerDashboard';
 
 function App() {
   return (
@@ -45,14 +47,14 @@ function App() {
               <Route path="create-donation-request" element={<CreateDonationRequest />} />
               <Route path="my-donation-requests" element={<MyDonationRequests />} />
               <Route path="funding" element={<Funding />} />
-              
-              {/* Donation Request Details */}
               <Route path="request/:id" element={<DonationRequestDetails />} />
 
               {/* Admin Routes */}
               <Route path="admin" element={<AdminDashboardHome />} />
               <Route path="all-users" element={<AllUsers />} />
               <Route path="all-blood-requests" element={<AllBloodRequests />} />
+              <Route path="donor" element={<DonorDashboard />} />
+              <Route path="volunteer" element={<VolunteerDashboard />} />
             </Route>
           </Routes>
         </main>

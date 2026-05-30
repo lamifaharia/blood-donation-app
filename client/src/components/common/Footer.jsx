@@ -2,7 +2,6 @@ const Footer = () => {
   return (
     <footer className="bg-neutral text-neutral-content mt-auto py-12">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Main Footer Content - Flex Row */}
         <div className="flex flex-wrap justify-between gap-12 border-b border-neutral-content/10 pb-12">
           
           {/* Brand */}
@@ -13,7 +12,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Links Container - Side by Side */}
           <div className="flex flex-wrap gap-12 lg:gap-24">
             <nav className="flex flex-col gap-3">
               <h6 className="font-bold text-error uppercase text-sm tracking-widest">Services</h6>
@@ -34,7 +32,7 @@ const Footer = () => {
               <div className="join">
                 <input 
                   type="text" 
-                  placeholder="username@site.com" 
+                  placeholder="email@gmail.com" 
                   className="input input-bordered join-item w-48 bg-neutral-content/10 border-neutral-content/20" 
                 />
                 <button className="btn btn-error text-white join-item">Sub</button>

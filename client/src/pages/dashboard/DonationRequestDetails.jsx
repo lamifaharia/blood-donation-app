@@ -15,7 +15,6 @@ const DonationRequestDetails = () => {
     const fetchRequestDetails = async () => {
       try {
         setLoading(true);
-        // Mock request
         setRequest({
           _id: id,
           recipientName: "Rahim Khan",

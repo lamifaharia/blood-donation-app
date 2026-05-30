@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, avatar, bloodGroup, district, upazila } = req.body;
+    // 1. Destructure 'role' from req.body
+    const { name, email, password, avatar, bloodGroup, district, upazila, role } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -14,6 +15,7 @@ const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // 2. Use the provided role, or default to 'donor'
     const newUser = await User.create({
       name,
       email,
@@ -22,7 +24,7 @@ const registerUser = async (req, res) => {
       bloodGroup,
       district,
       upazila,
-      role: 'donor',
+      role: role || 'donor', 
       status: 'active'
     });
 

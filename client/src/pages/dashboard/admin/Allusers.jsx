@@ -116,7 +116,7 @@ const AllUsers = () => {
                     </button>
                     <div className="dropdown dropdown-left">
                       <button tabIndex={0} className="btn btn-sm btn-outline">Change Role</button>
-                      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-200">
+                      <ul tabIndex={0} className="dropdown-content z-1 menu p-2 shadow bg-base-100 rounded-box w-32 border border-base-200">
                         <li><button onClick={() => handleRoleChange(user._id, 'donor')}>Donor</button></li>
                         <li><button onClick={() => handleRoleChange(user._id, 'volunteer')}>Volunteer</button></li>
                         <li><button onClick={() => handleRoleChange(user._id, 'admin')}>Admin</button></li>

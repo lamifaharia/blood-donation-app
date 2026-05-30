@@ -63,9 +63,6 @@ const AdminDashboardHome = () => {
               <p className="text-sm text-base-content/70 mt-2">Manage all donation requests</p>
             </button>
           </div>
-          {/* TODO: Add your dashboard banner image here: 
-              <img src="/dashboard-hero.jpg" alt="Admin Panel" className="rounded-xl mt-6 w-full h-40 object-cover" /> 
-          */}
         </div>
       </div>
     </div>

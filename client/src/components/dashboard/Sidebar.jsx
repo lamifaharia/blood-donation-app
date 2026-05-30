@@ -5,38 +5,23 @@ import { Home, User, PlusCircle, List, Users, HandHeart, DollarSign, LogOut, Shi
 const Sidebar = () => {
   const { user, logout } = useAuth();
 
-  const isAdmin = user?.role === 'admin';
-  const isVolunteer = user?.role === 'volunteer';
-
   const menuItems = [
     { path: '/dashboard', label: 'Dashboard Home', icon: Home },
     { path: '/dashboard/profile', label: 'My Profile', icon: User },
-    ...(isAdmin 
-      ? [
-          { path: '/dashboard/admin', label: 'Admin Home', icon: Shield },
-          { path: '/dashboard/all-users', label: 'All Users', icon: Users },
-          { path: '/dashboard/all-blood-requests', label: 'All Requests', icon: HandHeart },
-        ] 
-      : isVolunteer 
-      ? [
-          { path: '/dashboard/all-blood-requests', label: 'All Requests', icon: HandHeart },
-        ] 
-      : [
-          { path: '/dashboard/create-donation-request', label: 'Create Request', icon: PlusCircle },
-          { path: '/dashboard/my-donation-requests', label: 'My Requests', icon: List },
-          { path: '/dashboard/funding', label: 'Funding', icon: DollarSign },
-        ]
-    )
+    { path: '/dashboard/admin', label: 'Admin Home', icon: Shield },
+    { path: '/dashboard/all-users', label: 'All Users', icon: Users },
+    { path: '/dashboard/all-blood-requests', label: 'All Requests', icon: HandHeart },
+    { path: '/dashboard/donor', label: 'Donor Dashboard', icon: User },
+    { path: '/dashboard/volunteer', label: 'Volunteer Dashboard', icon: Users },
+    { path: '/dashboard/create-donation-request', label: 'Create Request', icon: PlusCircle },
+    { path: '/dashboard/my-donation-requests', label: 'My Requests', icon: List },
+    { path: '/dashboard/funding', label: 'Funding', icon: DollarSign },
   ];
 
   return (
     <div className="w-72 bg-base-100 border-r border-base-200 min-h-screen flex flex-col shrink-0">
-      <div className="p-6 flex flex-col flex-grow">
-        {/* Brand Area */}
+      <div className="p-6 flex flex-col grow">
         <div className="flex items-center gap-3 mb-10 pl-2">
-          {/* TODO: Replace this div with your actual logo image if available: 
-              <img src="/logo.png" alt="Logo" className="w-10" /> 
-          */}
           <div className="w-10 h-10 bg-error rounded-xl flex items-center justify-center text-white text-2xl shadow-lg shadow-error/20">
             🩸
           </div>
@@ -48,8 +33,7 @@ const Sidebar = () => {
           </div>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="space-y-2 flex-grow">
+        <nav className="space-y-2 grow">
           {menuItems.map((item) => (
             <NavLink
               key={item.path}
@@ -69,13 +53,11 @@ const Sidebar = () => {
           ))}
         </nav>
 
-        {/* User Info & Logout Section */}
         <div className="mt-auto pt-6 border-t border-base-200">
           <div className="flex items-center gap-3 px-2 mb-4">
             <div className="avatar">
               <div className="w-10 rounded-full ring ring-error ring-offset-2">
                 <img src={user?.avatar || '/placeholder-user.png'} alt="Profile" />
-                {/* TODO: Add logic to use user's uploaded avatar or a default placeholder */}
               </div>
             </div>
             <div className="overflow-hidden">
